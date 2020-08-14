@@ -1,0 +1,38 @@
+
+#!/bin/bash
+
+counter=0;
+for(( i=1; i<=10; i++ ))
+do
+array[$counter]=$(( 100 + RANDOM%100 ))
+((counter++))
+done
+echo ${array[@]}
+
+largest=${array[@]}
+smallest=${array[@]}
+secondGreatest='unset'
+secondSmallest='unset'
+for(( j=1; j<${#array[@]}; j++ ))
+do
+  if [[ ${array[j]} > $largest ]]
+  then
+    secondGreatest=$largest
+    largest=${array[j]}
+  elif [[ ${array[j]} != $largest ]] && { [[ "$secondGreatest" = "unset" ]] || [[ ${array[j]} > $secondGreatest ]]; }
+  then
+    secondGreatest=${array[j]}
+  fi
+
+  if [[ ${array[j]} < $smallest ]]
+  then
+    secondSmallest=$smallest
+    smallest=${array[j]}
+  elif [[ ${array[j]} != $smallest ]] && { [[ "$secondSmallest" = "unset" ]] || [[ ${array[j]} < $secondSmallest ]]; }
+  then
+    secondSmallest=${array[j]}
+  fi
+done
+
+echo "secondGreatest = $secondGreatest"
+echo "secondSmallest = $secondSmallest"

@@ -1,0 +1,146 @@
+Birth Month
+=========================
+#!/bin/bash
+
+IS_JAN=1
+IS_FEB=2
+IS_MAR=3
+IS_APR=4
+IS_MAY=5
+IS_JUN=6
+IS_JUL=7
+IS_AUG=8
+IS_SEPT=9
+IS_OCT=10
+IS_NOV=11
+IS_DEC=12
+
+#dictionary
+
+declare -A birthMonth
+
+janCounter=0
+febCounter=0
+marCounter=0
+aprCounter=0
+mayCounter=0
+junCounter=0
+julCounter=0
+augCounter=0
+sepCounter=0
+octCounter=0
+novCounter=0
+decCounter=0
+
+for (( i=0 ; i<5; i++ ))
+do
+	randomMonth=$(( 1+RANDOM%12 ))
+	case $randomMonth in
+			$IS_JAN)
+				birthMonth[January]=$(( ++janCounter));;
+         $IS_FEB)
+            birthMonth[February]=$(( ++febCounter));;
+         $IS_MAR)
+            birthMonth[March]=$(( ++marCounter));;
+         $IS_APR)
+            birthMonth[April]=$(( ++aprCounter));;
+         $IS_MAY)
+            birthMonth[May]=$(( ++mayCounter));;
+         $IS_JUN)
+            birthMonth[June]=$(( ++junCounter));;
+         $IS_JUL)
+            birthMonth[July]=$(( ++julCounter));;
+         $IS_AUG)
+            birthMonth[August]=$(( ++augCounter));;
+         $IS_SEPT)
+            birthMonth[September]=$(( ++sepCounter));;
+         $IS_OCT)
+            birthMonth[October]=$(( ++octCounter));;
+         $IS_NOV)
+            birthMonth[November]=$(( ++novCounter));;
+         $IS_DEC)
+            birthMonth[December]=$(( ++decCounter));;
+	esac
+done
+
+==============================================================
+Dice Roll
+==============================================================
+#!/bin/bash -x
+
+#constants
+
+IS_ONE=1
+IS_TWO=2
+IS_THREE=3
+IS_FOUR=4
+IS_FIVE=5
+IS_SIX=6
+
+#declaring dictionary
+declare -A diceRoll
+
+counterOfOne=0
+counterOfTwo=0
+counterOfThree=0
+counterOfFour=0
+counterOfFive=0
+counterOfSix=0
+
+
+while [[ $counterOfOne -le 10 && $counterOfTwo -le 10 && $counterOfThree -le 10 && $counterOfFour -le 10 && $counterOfFive -le 10 && $counterOfSix -le 10 ]]
+do
+	randomRollNumber=$(( 1+RANDOM%6 ))
+	case $randomRollNumber in
+			$IS_ONE)
+					(( counterOfOne++ ))
+					diceRoll[Number1]=$counterOfOne
+					;;
+			$IS_TWO)
+					(( counterOfTwo++ ))
+               diceRoll[Number2]=$counterOfTwo
+               ;;
+			$IS_THREE)
+               (( counterOfThree++ ))
+               diceRoll[Number3]=$counterOfThree
+               ;;
+			$IS_FOUR)
+               (( counterOfFour++ ))
+               diceRoll[Number4]=$counterOfFour
+               ;;
+			$IS_FIVE)
+               (( counterOfFive++ ))
+               diceRoll[Number5]=$counterOfFive
+               ;;
+			$IS_SIX)
+               (( counterOfSix++ ))
+               diceRoll[Number6]=$counterOfSix
+               ;;
+	esac
+done
+
+echo "Dictionary is:"
+echo ${!diceRoll[@]}
+echo ${diceRoll[@]}
+
+
+max=0
+
+for i in "${diceRoll[@]}"
+do
+	if [[ $i -gt $max ]]
+	then
+		max=$i
+	fi
+done
+echo "Max:"$max
+min=$max
+
+for i in "${diceRoll[@]}"
+do
+   if [[ $i -lt $min ]]
+   then
+      min=$i
+   fi
+done
+echo "Min:"$min
